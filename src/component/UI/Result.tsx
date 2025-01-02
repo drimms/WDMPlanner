@@ -1,4 +1,4 @@
-import { Box, Button, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { useState } from "react"
 
 
@@ -8,26 +8,25 @@ const Result = () => {
 
     const handleCalculation = () => {
         setTimeout(() => {
-            setLoading(true); 
+            setLoading(true);
         }, 2000);
     }
 
     return (
         <>
-            <Box  sx={{ mt: 3, display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-            <Button 
-                    variant="contained" 
-                    onClick={handleCalculation} 
+            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                <Button
+                    variant="contained"
+                    onClick={handleCalculation}
                 >
                     Посчитай, брат
                 </Button>
-                
-                {loading && (<TableContainer 
-                        component={Paper} 
-                        sx={{
-                            mt: 2, width: '40%', ml: '50%'
-                        }}
-                    >
+
+                {loading && (<TableContainer
+                    component={Paper}
+                    sx={{ mt: 2, width: '100%' }}
+                >
+                    <Table sx={{ width: '100%' }}>
                     <TableHead>
                         <TableRow>
                             <TableCell>Параметр</TableCell>
@@ -44,9 +43,10 @@ const Result = () => {
                             <TableCell>2323</TableCell>
                         </TableRow>
                     </TableBody>
+                    </Table>
                 </TableContainer>)}
             </Box>
-            
+
         </>
     )
 

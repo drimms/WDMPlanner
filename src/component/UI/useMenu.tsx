@@ -1,18 +1,22 @@
 import { createContext, useContext, useState } from "react";
+import { useCalculation } from "../Network/useCalculation";
 
 
 const MenuContext = createContext();
 
 export const MenuProvider = ({ children }) => {
     const [components, setComponents] = useState([]);
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState<EventTarget | null>(null);
     const open = Boolean(anchorEl);
+    const [total, setTotal] = useState([])
+    const { result } = useCalculation()
 
-    const handleAddComponent = (componentType) => {
+    const handleAddComponent = (componentType: string) => {
         setComponents((prev) => [...prev, componentType]);
+        
         handleClose();
     };
-
+    console.log(result)
     const handleClick = (event: MouseEvent) => {
         setAnchorEl(event.currentTarget);
     };

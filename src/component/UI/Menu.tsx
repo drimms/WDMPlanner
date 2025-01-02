@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import SpaceBarIcon from '@mui/icons-material/SpaceBar';
-import {useMenu} from './useMenu';
+import { useMenu } from './useMenu';
 
 
 const BasicMenu = () => {
@@ -32,7 +32,7 @@ const BasicMenu = () => {
       >
         <MenuItem onClick={() => handleAddComponent('Node')}> <AccountCircleIcon /> Клиентский узел</MenuItem>
         <MenuItem onClick={() => handleAddComponent('Pump')}><EmojiObjectsIcon /> Усилитель</MenuItem>
-        <MenuItem onClick={() =>  handleAddComponent('Fiber')}><SpaceBarIcon /> Оптический пролет</MenuItem>
+        <MenuItem onClick={() => handleAddComponent('Fiber')}><SpaceBarIcon /> Оптический пролет</MenuItem>
       </Menu>
     </div>
   );

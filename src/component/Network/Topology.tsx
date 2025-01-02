@@ -15,12 +15,12 @@ const Topology = () => {
             Fiber: { src: fiber, label: 'Оптический пролет' },
             Pump: { src: mux, label: 'Усилитель' },
         };
-    
+
         const { src, label } = componentMap[component] || {};
         if (!src) return null;
-    
+
         return (
-            <Box 
+            <Box
                 key={index}
                 display="flex"
                 flexDirection="column"
