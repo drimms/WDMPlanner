@@ -11,12 +11,12 @@ const Topology = () => {
 
     const renderComponent = (component, index) => {
         const componentMap = {
-            Node: { src: client, label: 'Узел доступа' },
-            Fiber: { src: fiber, label: 'Оптический пролет' },
-            Pump: { src: ampl, label: 'Усилитель' },
+            Node: { src: client, label: 'Узел доступа', color: 'blue' },
+            Fiber: { src: fiber, label: 'Оптический пролет', color: 'green' },
+            Pump: { src: ampl, label: 'Усилитель', color: 'red' },
         };
 
-        const { src, label } = componentMap[component] || {};
+        const { src, label, color } = componentMap[component] || {};
         if (!src) return null;
 
         return (
@@ -28,7 +28,7 @@ const Topology = () => {
                 justifyContent="center"
                 margin={1}
             >
-                <img src={src} width="100px" alt={`${label} Icon`} style={{background: 'black'}}/>
+                <img src={src} width="100px" alt={`${label} Icon`} style={{background: `${color}`}}/>
                 <Typography variant="caption" align="center">{label}</Typography>
             </Box>
         );
