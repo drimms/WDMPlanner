@@ -1,8 +1,8 @@
 import { Container, Box, Typography } from "@mui/material";
 import { useMenu } from "./Menu/useMenu";
-import client from '../../assets/network/client.png';
-import mux from '../../assets/network/muxdemux.png';
-import fiber from '../../assets/network/fiber.png';
+import client from '../../assets/network/icon-aocs.webp';
+import ampl from '../../assets/network/icon-passives-new.png';
+import fiber from '../../assets/network/icon-cables.webp';
 
 
 const Topology = () => {
@@ -13,7 +13,7 @@ const Topology = () => {
         const componentMap = {
             Node: { src: client, label: 'Узел доступа' },
             Fiber: { src: fiber, label: 'Оптический пролет' },
-            Pump: { src: mux, label: 'Усилитель' },
+            Pump: { src: ampl, label: 'Усилитель' },
         };
 
         const { src, label } = componentMap[component] || {};
@@ -28,7 +28,7 @@ const Topology = () => {
                 justifyContent="center"
                 margin={1}
             >
-                <img src={src} width="100px" alt={`${label} Icon`} />
+                <img src={src} width="100px" alt={`${label} Icon`} style={{background: 'black'}}/>
                 <Typography variant="caption" align="center">{label}</Typography>
             </Box>
         );
