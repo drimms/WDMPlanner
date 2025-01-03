@@ -1,30 +1,22 @@
-import { Box, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-
+import { Box, MenuItem, Select, TextField, Typography } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import { IconButton } from "@mui/material";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { opticalAmplifier } from './inventory/amplifier'
-import { useMenu } from "../UI/useMenu";
-import { IProps } from "./IInterface";
+import { useMenu } from "../../UI/Menu/useMenu";
+import { IProps } from "../IInterface";
+import rootStore from "../../../store/rootStore";
+import useAmplifier from "./useAmplifier";
+import { opticalAmplifier } from '../inventory/amplifier'
+import { observer } from "mobx-react-lite";
 
-const Pump = ({ index }: IProps) => {
-  const [nf, setNF] = useState<number>();
-  const [type, setType] = useState('');
-  const [gain, setGain] = useState('');
-
+const Pump = observer(({ index }: IProps) => {
+  
   const { handleCardClose } = useMenu();
 
-  const handleAmpChange = (e: SelectChangeEvent) => {
-    let typeAmplifier = e.target.value;
-    setType(typeAmplifier);
-    let amp = opticalAmplifier.filter(p => p.title === typeAmplifier);
-    setNF(amp[0].nf);
-  };
+  const { handleAmpChange } = useAmplifier();
 
   return (
     <>
@@ -41,13 +33,13 @@ const Pump = ({ index }: IProps) => {
             </IconButton>
           }
           title="Оптический усилитель"
-          subheader={type}
+          subheader={rootStore.amplifierStore.type}
         />
         <CardContent>
 
           <Box sx={{ '& .MuiTextField-root': { ml: 2, mb: 2, width: '25ch' } }}>
             <Select
-              value={type}
+              value={rootStore.amplifierStore.type}
               onChange={handleAmpChange}
               displayEmpty
 
@@ -63,8 +55,8 @@ const Pump = ({ index }: IProps) => {
             </Select>
             <TextField
               label="Ввести коэффициент усилителя"
-              value={gain}
-              onChange={e => setGain(e.target.value)}
+              value={rootStore.amplifierStore.gain}
+              onChange={e => rootStore.amplifierStore.setGain(Number(e.target.value))}
               type="number"
             />
           </Box>
@@ -72,11 +64,9 @@ const Pump = ({ index }: IProps) => {
             Краткое описание оптического усилителя
           </Typography>
         </CardContent>
-
-
       </Card>
     </>
   )
-};
+});
 
-export default Pump
+export default Pump;

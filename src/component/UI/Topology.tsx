@@ -1,5 +1,5 @@
 import { Container, Box, Typography } from "@mui/material";
-import { useMenu } from "../UI/useMenu";
+import { useMenu } from "./Menu/useMenu";
 import client from '../../assets/network/client.png';
 import mux from '../../assets/network/muxdemux.png';
 import fiber from '../../assets/network/fiber.png';

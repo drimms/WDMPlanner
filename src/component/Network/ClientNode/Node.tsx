@@ -1,38 +1,24 @@
-import { Box, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, MenuItem, Select, TextField } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import { IconButton } from "@mui/material";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { clientTransponder } from './inventory/transponter'
-import { useMenu } from "../UI/useMenu";
-import { IProps } from "./IInterface";
+import { clientTransponder } from '../inventory/transponter'
+import { useMenu } from "../../UI/Menu/useMenu";
+import { IProps } from "../IInterface";
+import rootStore from "../../../store/rootStore";
+import useNode from "./useNode";
+import { observer } from "mobx-react-lite";
 
-const Node = ({ index }: IProps) => {
-    const [type, setType] = useState('');
-    const [payload, setPayload] = useState('');
-    const [power, setOutputPower] = useState('');
-    const [error, setError] = useState(false);
+
+const Node = observer(({ index }: IProps) => {
 
     const { handleCardClose } = useMenu();
 
-    const handleAmpChange = (e: SelectChangeEvent) => {
-        let typeClientCard = e.target.value;
-        setType(typeClientCard);
-    };
-
-    const handleChangeOutputPower = (e) => {
-        const value = e.target.value;
-        if (!isNaN(value) && value !== "") {
-            setError(false);
-        } else {
-            setError(true);
-        }
-
-        setOutputPower(value);
-    };
+    const { handlePayloadChange, handleChangeOutputPower } = useNode();
+    
 
     return (
         <>
@@ -49,7 +35,7 @@ const Node = ({ index }: IProps) => {
                         </IconButton>
                     }
                     title="Клиентский узел"
-                    subheader={type}
+                    subheader={rootStore.transponderStore.type}
                 />
                 <CardContent>
                     <Box
@@ -61,8 +47,8 @@ const Node = ({ index }: IProps) => {
                             gap: 2
                         }}>
                         <Select
-                            value={type}
-                            onChange={handleAmpChange}
+                            value={rootStore.transponderStore.type}
+                            onChange={handlePayloadChange}
                             displayEmpty
                             autoWidth
                         >
@@ -76,15 +62,15 @@ const Node = ({ index }: IProps) => {
                             ))}
                         </Select>
                         <Select
-                            value={payload}
-                            onChange={e => setPayload(e.target.value)}
+                            value={rootStore.transponderStore.payload}
+                            onChange={e => rootStore.transponderStore.setPayload(e.target.value)}
                             displayEmpty
                             autoWidth
                         >
                             <MenuItem value="" disabled>
                                 Тип трафика
                             </MenuItem>
-                            {clientTransponder.find(p => p.title === type)?.payload.map((p, i) => (
+                            {clientTransponder.find(p => p.title === rootStore.transponderStore.type)?.payload.map((p, i) => (
                                 <MenuItem key={i} value={p}>
                                     {p}
                                 </MenuItem>
@@ -93,10 +79,10 @@ const Node = ({ index }: IProps) => {
                         </Select>
                         <TextField
                             label="Уровень выходной мощности, дБм"
-                            value={power}
+                            value={rootStore.transponderStore.power}
                             onChange={handleChangeOutputPower}
-                            error={error}
-                            helperText={error ? "В шары не долбись, брат" : ''}
+                            error={rootStore.error}
+                            type='number'
                         />
                     </Box>
                 </CardContent>
@@ -106,6 +92,6 @@ const Node = ({ index }: IProps) => {
             </Card>
         </>
     )
-};
+});
 
 export default Node;

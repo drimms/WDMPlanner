@@ -1,9 +1,10 @@
-import Fiber from '../Network/Fiber'
-import Pump from '../Network/Pump'
-import Node from '../Network/Node'
-import { useMenu } from './useMenu';
-import BasicMenu from './Menu';
+import Fiber from '../Network/OpticalSpan/Fiber'
+import Pump from '../Network/Amplifier/Pump'
+import Node from '../Network/ClientNode/Node'
+import { useMenu } from './Menu/useMenu';
+import BasicMenu from './Menu/Menu';
 import Result from './Result';
+import { observer } from 'mobx-react-lite';
 
 
 const ListNode = () => {
@@ -37,4 +38,4 @@ const ListNode = () => {
   )
 };
 
-export default ListNode;
+export default observer(ListNode);

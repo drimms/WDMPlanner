@@ -1,18 +1,19 @@
-import { Card, Box, Select, MenuItem, TextField, Typography, SelectChangeEvent } from "@mui/material";
-import { opticalFiber } from "./inventory/fiber";
+import { Card, Box, Select, MenuItem, TextField } from "@mui/material";
+import { opticalFiber } from "../inventory/fiber";
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import { IconButton } from "@mui/material";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { useMenu } from "../UI/useMenu";
-import { IProps } from "./IInterface";
-import { useCalculation } from "./useCalculation";
+import { useMenu } from "../../UI/Menu/useMenu";
+import { IProps } from "../IInterface";
+import { useFiber } from "./useFiber";
+import rootStore from "../../../store/rootStore";
+import { observer } from "mobx-react-lite";
 
-
-const Fiber = ({ index }: IProps) => {
+const Fiber = observer(({ index }: IProps) => {
     const { handleCardClose } = useMenu();
-    const { fiber, span, result, handleFiberChange, handleSpanLength } = useCalculation();
+    const { handleFiberChange, handleSpanLength } = useFiber();
    
     return (
         <>
@@ -29,7 +30,7 @@ const Fiber = ({ index }: IProps) => {
                         </IconButton>
                     }
                     title="Оптическое волокно"
-                    subheader={fiber}
+                    subheader={rootStore.fiberStore.fiber}
                 />
                 <CardContent>
                     <Box
@@ -41,7 +42,7 @@ const Fiber = ({ index }: IProps) => {
                             gap: 2
                         }}>
                         <Select
-                            value={fiber}
+                            value={rootStore.fiberStore.fiber}
                             onChange={handleFiberChange}
                             displayEmpty
                             autoWidth
@@ -58,14 +59,14 @@ const Fiber = ({ index }: IProps) => {
 
                         <TextField
                             label="Ввести длину пролета, км"
-                            value={span}
+                            value={rootStore.fiberStore.span}
                             onChange={handleSpanLength}
                             type='number'
 
                         />
                         <TextField
                             disabled
-                            value={result + ' ' + 'дБ'} />
+                            value={rootStore.fiberStore.result + ' ' + 'дБ'} />
                     </Box>
                 </CardContent>
 
@@ -74,6 +75,6 @@ const Fiber = ({ index }: IProps) => {
             </Card>
         </>
     )
-};
+});
 
 export default Fiber
