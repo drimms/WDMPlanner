@@ -3,17 +3,21 @@ import { useMenu } from "./Menu/useMenu";
 import client from '../../assets/network/icon-aocs.webp';
 import ampl from '../../assets/network/icon-passives-new.png';
 import fiber from '../../assets/network/icon-cables.webp';
+import rootStore from "../../store/rootStore";
+import { observer } from "mobx-react-lite";
+import ru from "../Network/inventory/ru_dictionary";
 
 
 const Topology = () => {
 
-    const { components } = useMenu();
+    const components = rootStore.menuStore.components;
 
     const renderComponent = (component, index) => {
+        console.log(component, index)
         const componentMap = {
-            Node: { src: client, label: 'Узел доступа', color: 'blue' },
-            Fiber: { src: fiber, label: 'Оптический пролет', color: 'green' },
-            Pump: { src: ampl, label: 'Усилитель', color: 'red' },
+            Node: { src: client, label: ru.nodeTitle, color: 'blue' },
+            Fiber: { src: fiber, label: ru.opticalSpan, color: 'green' },
+            Pump: { src: ampl, label: ru.opticalAmp, color: 'red' },
         };
 
         const { src, label, color } = componentMap[component] || {};
@@ -39,11 +43,11 @@ const Topology = () => {
         <>
             <Container>
                 <Box sx={{ mb: 3, display: 'flex' }}>
-                    {components.map((component, index) => renderComponent(component, index))}
+                    {components.map(({ type }, index) => renderComponent(type, index))}
                 </Box>
             </Container>
         </>
     )
 };
 
-export default Topology;
+export default observer(Topology);

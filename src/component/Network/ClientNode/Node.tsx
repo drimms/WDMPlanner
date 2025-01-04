@@ -11,13 +11,14 @@ import { IProps } from "../IInterface";
 import rootStore from "../../../store/rootStore";
 import useNode from "./useNode";
 import { observer } from "mobx-react-lite";
+import ru from "../inventory/ru_dictionary";
 
 
 const Node = observer(({ index }: IProps) => {
 
-    const { handleCardClose } = useMenu();
+    const { handleDeleteComponent } = useMenu();
 
-    const { handlePayloadChange, handleChangeOutputPower } = useNode();
+    const { handlePayloadChange, handleChangeOutputPower, handleTitleNode } = useNode();
     
 
     return (
@@ -30,11 +31,11 @@ const Node = observer(({ index }: IProps) => {
                         </Avatar>
                     }
                     action={
-                        <IconButton aria-label="settings" onClick={() => handleCardClose(index)}>
+                        <IconButton aria-label="settings" onClick={() => handleDeleteComponent(index)}>
                             <HighlightOffIcon />
                         </IconButton>
                     }
-                    title="Клиентский узел"
+                    title={ru.nodeTitle}
                     subheader={rootStore.transponderStore.type}
                 />
                 <CardContent>
@@ -46,6 +47,11 @@ const Node = observer(({ index }: IProps) => {
                             justifyContent: 'center',
                             gap: 2
                         }}>
+                            <TextField
+                            label={ru.nodeTitleNode}
+                            value={rootStore.transponderStore.title}
+                            onChange={handleTitleNode}
+                        />
                         <Select
                             value={rootStore.transponderStore.type}
                             onChange={handlePayloadChange}
@@ -53,7 +59,7 @@ const Node = observer(({ index }: IProps) => {
                             autoWidth
                         >
                             <MenuItem value="" disabled>
-                                Ввести тип платы
+                                {ru.nodeTypeCard}
                             </MenuItem>
                             {clientTransponder.map((p, i) => (
                                 <MenuItem key={i} value={p.title}>
@@ -68,7 +74,7 @@ const Node = observer(({ index }: IProps) => {
                             autoWidth
                         >
                             <MenuItem value="" disabled>
-                                Тип трафика
+                                {ru.nodeTypePayload}
                             </MenuItem>
                             {clientTransponder.find(p => p.title === rootStore.transponderStore.type)?.payload.map((p, i) => (
                                 <MenuItem key={i} value={p}>
@@ -78,7 +84,7 @@ const Node = observer(({ index }: IProps) => {
                             }
                         </Select>
                         <TextField
-                            label="Уровень выходной мощности, дБм"
+                            label={ru.nodeCardPower}
                             value={rootStore.transponderStore.power}
                             onChange={handleChangeOutputPower}
                             error={rootStore.error}

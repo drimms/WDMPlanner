@@ -1,17 +1,18 @@
 import Fiber from '../Network/OpticalSpan/Fiber'
 import Pump from '../Network/Amplifier/Pump'
 import Node from '../Network/ClientNode/Node'
-import { useMenu } from './Menu/useMenu';
 import BasicMenu from './Menu/Menu';
-import Result from './Result';
+import Result from './Result/Result';
 import { observer } from 'mobx-react-lite';
-
+import rootStore from '../../store/rootStore';
 
 const ListNode = () => {
-  const { components } = useMenu();
 
-  const renderComponent = (component:string, index:number) => {
-    switch (component) {
+  const components = rootStore.menuStore.components;
+
+  const renderComponent = (type:string, index:number) => {
+    
+    switch (type) {
       case 'Node':
         return <Node key={index} index={index} />;
       case 'Fiber':
@@ -27,7 +28,7 @@ const ListNode = () => {
     <>
       <BasicMenu />
       <div>
-        {components.map((component, index) => renderComponent(component, index))}
+        {components.map(({ type }, index) => renderComponent(type, index))}
       </div>
 
       {

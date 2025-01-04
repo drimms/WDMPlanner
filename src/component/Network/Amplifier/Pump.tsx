@@ -11,10 +11,10 @@ import rootStore from "../../../store/rootStore";
 import useAmplifier from "./useAmplifier";
 import { opticalAmplifier } from '../inventory/amplifier'
 import { observer } from "mobx-react-lite";
-
+import ru from '../../Network/inventory/ru_dictionary'
 const Pump = observer(({ index }: IProps) => {
   
-  const { handleCardClose } = useMenu();
+  const { handleDeleteComponent } = useMenu();
 
   const { handleAmpChange } = useAmplifier();
 
@@ -28,11 +28,11 @@ const Pump = observer(({ index }: IProps) => {
             </Avatar>
           }
           action={
-            <IconButton aria-label="settings" onClick={() => handleCardClose(index)}>
+            <IconButton aria-label="settings" onClick={() => handleDeleteComponent(index)}>
               <HighlightOffIcon />
             </IconButton>
           }
-          title="Оптический усилитель"
+          title={ru.opticalAmp}
           subheader={rootStore.amplifierStore.type}
         />
         <CardContent>
@@ -45,7 +45,7 @@ const Pump = observer(({ index }: IProps) => {
 
             >
               <MenuItem value="" disabled>
-                Ввести тип усилителя
+                {ru.inputTypeAmp}
               </MenuItem>
               {opticalAmplifier.map((p, i) => (
                 <MenuItem key={i} value={p.title}>
@@ -54,14 +54,14 @@ const Pump = observer(({ index }: IProps) => {
               ))}
             </Select>
             <TextField
-              label="Ввести коэффициент усилителя"
+              label={ru.inputGain}
               value={rootStore.amplifierStore.gain}
               onChange={e => rootStore.amplifierStore.setGain(Number(e.target.value))}
               type="number"
             />
           </Box>
           <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-            Краткое описание оптического усилителя
+            {ru.opticalDesc}
           </Typography>
         </CardContent>
       </Card>

@@ -1,17 +1,15 @@
 import { createContext, useContext, useState } from "react";
+import rootStore from "../../../store/rootStore";
 
 
 const MenuContext = createContext();
 
 export const MenuProvider = ({ children }) => {
-    const [components, setComponents] = useState([]);
     const [anchorEl, setAnchorEl] = useState<EventTarget | null>(null);
     const open = Boolean(anchorEl);
-    const [total, setTotal] = useState([])
 
     const handleAddComponent = (componentType: string) => {
-        setComponents((prev) => [...prev, componentType]);
-        
+        rootStore.menuStore.addComponent(componentType);
         handleClose();
     };
     
@@ -23,20 +21,19 @@ export const MenuProvider = ({ children }) => {
         setAnchorEl(null);
     };
 
-    const handleCardClose = (index: number) => {
-        setComponents((prev) => prev.filter((_, idx) => idx !== index));
+    const handleDeleteComponent = (index: number) => {
+        rootStore.menuStore.removeComponent(index);
     }
 
     return (
         <MenuContext.Provider
             value={{
-                components,
                 open,
                 anchorEl,
                 handleAddComponent,
                 handleClick,
                 handleClose,
-                handleCardClose
+                handleDeleteComponent
             }}
         >
             {children}

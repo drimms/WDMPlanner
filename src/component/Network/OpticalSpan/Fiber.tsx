@@ -10,9 +10,10 @@ import { IProps } from "../IInterface";
 import { useFiber } from "./useFiber";
 import rootStore from "../../../store/rootStore";
 import { observer } from "mobx-react-lite";
+import ru from "../inventory/ru_dictionary";
 
 const Fiber = observer(({ index }: IProps) => {
-    const { handleCardClose } = useMenu();
+    const { handleDeleteComponent } = useMenu();
     const { handleFiberChange, handleSpanLength } = useFiber();
    
     return (
@@ -25,11 +26,11 @@ const Fiber = observer(({ index }: IProps) => {
                         </Avatar>
                     }
                     action={
-                        <IconButton aria-label="settings" onClick={() => handleCardClose(index)}>
+                        <IconButton aria-label="settings" onClick={() => handleDeleteComponent(index)}>
                             <HighlightOffIcon />
                         </IconButton>
                     }
-                    title="Оптическое волокно"
+                    title={ru.opticalSpan}
                     subheader={rootStore.fiberStore.fiber}
                 />
                 <CardContent>
@@ -48,7 +49,7 @@ const Fiber = observer(({ index }: IProps) => {
                             autoWidth
                         >
                             <MenuItem value="" disabled>
-                                Ввести тип волокна
+                                {ru.opticalFiberType}
                             </MenuItem>
                             {opticalFiber.map((p, i) => (
                                 <MenuItem key={i} value={p.title}>
@@ -58,7 +59,7 @@ const Fiber = observer(({ index }: IProps) => {
                         </Select>
 
                         <TextField
-                            label="Ввести длину пролета, км"
+                            label={ru.inputLengthFiber}
                             value={rootStore.fiberStore.span}
                             onChange={handleSpanLength}
                             type='number'

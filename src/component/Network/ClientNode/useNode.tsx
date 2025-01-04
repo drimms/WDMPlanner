@@ -14,7 +14,13 @@ const useNode = () => {
         rootStore.transponderStore.setOutputPower(Number(value));
     };
 
+    const handleTitleNode = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        rootStore.transponderStore.setTitle(value);
+    };
+
     return ({
+        handleTitleNode,
         handlePayloadChange,
         handleChangeOutputPower
     })

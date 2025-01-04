@@ -5,6 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import SpaceBarIcon from '@mui/icons-material/SpaceBar';
 import { useMenu } from './useMenu';
+import ru from '../../Network/inventory/ru_dictionary';
 
 
 const BasicMenu = () => {
@@ -20,7 +21,7 @@ const BasicMenu = () => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Добавить компонент
+        {ru.inputComponent}
       </Button>
       <Menu
         id="basic-menu"

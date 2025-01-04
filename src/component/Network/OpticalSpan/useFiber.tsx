@@ -3,14 +3,20 @@ import { SelectChangeEvent } from "@mui/material";
 import { opticalFiber } from "../inventory/fiber";
 import rootStore from "../../../store/rootStore";
 import { ChangeEvent } from "react";
+import useResult from "../../UI/Result/useResult";
 
 
 export const useFiber = () => {
+
+    const { handleCalc } = useResult();
+
     const res = 
         rootStore.fiberStore.span && rootStore.fiberStore.att 
             ? parseFloat(rootStore.fiberStore.span) * parseFloat(rootStore.fiberStore.att) : '';
 
-    rootStore.fiberStore.setResult(res);
+    let bb = rootStore.fiberStore.setResult(res);
+
+    handleCalc(bb);
 
     const handleFiberChange = (e: SelectChangeEvent) => {
         let typeAmplifier = e.target.value;
