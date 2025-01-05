@@ -8,15 +8,11 @@ import useResult from "../../UI/Result/useResult";
 
 export const useFiber = () => {
 
-    const { handleCalc } = useResult();
-
     const res = 
         rootStore.fiberStore.span && rootStore.fiberStore.att 
             ? parseFloat(rootStore.fiberStore.span) * parseFloat(rootStore.fiberStore.att) : '';
 
-    let bb = rootStore.fiberStore.setResult(res);
-
-    handleCalc(bb);
+    rootStore.fiberStore.setResult(res);  
 
     const handleFiberChange = (e: SelectChangeEvent) => {
         let typeAmplifier = e.target.value;

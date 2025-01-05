@@ -6,14 +6,14 @@ import fiber from '../../assets/network/icon-cables.webp';
 import rootStore from "../../store/rootStore";
 import { observer } from "mobx-react-lite";
 import ru from "../Network/inventory/ru_dictionary";
-
+import { toJS } from 'mobx'
 
 const Topology = () => {
 
     const components = rootStore.menuStore.components;
-
+    
     const renderComponent = (component, index) => {
-        console.log(component, index)
+        
         const componentMap = {
             Node: { src: client, label: ru.nodeTitle, color: 'blue' },
             Fiber: { src: fiber, label: ru.opticalSpan, color: 'green' },

@@ -1,9 +1,6 @@
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
-import SpaceBarIcon from '@mui/icons-material/SpaceBar';
 import { useMenu } from './useMenu';
 import ru from '../../Network/inventory/ru_dictionary';
 
@@ -32,9 +29,15 @@ const BasicMenu = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={() => handleAddComponent('Node')}> <AccountCircleIcon /> Клиентский узел</MenuItem>
-        <MenuItem onClick={() => handleAddComponent('Pump')}><EmojiObjectsIcon /> Усилитель</MenuItem>
-        <MenuItem onClick={() => handleAddComponent('Fiber')}><SpaceBarIcon /> Оптический пролет</MenuItem>
+        <MenuItem onClick={() => handleAddComponent('Node')} >
+          {ru.nodeTitle}
+        </MenuItem>
+        <MenuItem onClick={() => handleAddComponent('Pump')} >
+          {ru.opticalAmp}
+        </MenuItem>
+        <MenuItem onClick={() => handleAddComponent('Fiber')} >
+          {ru.opticalSpan}
+        </MenuItem>
       </Menu>
     </div>
   );

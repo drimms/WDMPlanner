@@ -1,6 +1,7 @@
 import { SelectChangeEvent } from "@mui/material";
 import rootStore from "../../../store/rootStore";
 import { ChangeEvent } from "react";
+import { toJS } from "mobx";
 
 const useNode = () => {
 
@@ -19,6 +20,7 @@ const useNode = () => {
         rootStore.transponderStore.setTitle(value);
     };
 
+    console.log(toJS(rootStore.transponderStore), '---')
     return ({
         handleTitleNode,
         handlePayloadChange,

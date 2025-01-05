@@ -1,16 +1,14 @@
-import { useCallback } from 'react';
+import rootStore from '../../../store/rootStore';
+
 
 const useResult = () => {
-    const handleCalc = useCallback((value: any) => {
-        console.log(value)
-    }, []);
 
-    return (
-        {
-            handleCalc
-        }
-    )
-
+    const handleCalculationOSNR = () => {
+        const result = rootStore.menuStore.components;
+        return result;
+    }
+   
+    return { handleCalculationOSNR };
 };
 
 export default useResult;

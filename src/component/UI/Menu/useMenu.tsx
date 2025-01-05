@@ -9,7 +9,17 @@ export const MenuProvider = ({ children }) => {
     const open = Boolean(anchorEl);
 
     const handleAddComponent = (componentType: string) => {
-        rootStore.menuStore.addComponent(componentType);
+        switch (componentType) {
+            case 'Node':
+                rootStore.menuStore.addComponent(componentType, rootStore.transponderStore.power);
+                break
+            case 'Fiber':
+                rootStore.menuStore.addComponent(componentType, rootStore.fiberStore.result);
+                break
+            case 'Pump':
+                rootStore.menuStore.addComponent(componentType, rootStore.amplifierStore.gain);
+                break
+        }
         handleClose();
     };
     
@@ -30,9 +40,9 @@ export const MenuProvider = ({ children }) => {
             value={{
                 open,
                 anchorEl,
-                handleAddComponent,
                 handleClick,
                 handleClose,
+                handleAddComponent,
                 handleDeleteComponent
             }}
         >

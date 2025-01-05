@@ -2,15 +2,18 @@ import { makeAutoObservable } from "mobx";
 import { v4 as uuidv4 } from 'uuid';
 
 class MenuStore {
-    components: { id: string; type: string }[] = [];
+    components: { 
+        id: string; 
+        type: any;
+        param: any }[] = [];
 
     constructor() {
         makeAutoObservable(this);
     };
 
-    addComponent(type: string) {
+    addComponent(type: any, param: any) {
         const id = uuidv4();
-        this.components.push({ id, type });
+        this.components.push({ id, type, param });
       }
     
     removeComponent(id: number) {

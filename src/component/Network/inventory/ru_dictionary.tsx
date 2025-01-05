@@ -13,7 +13,12 @@ const ru = {
     nodeTitle: 'Клиентский узел',
     nodeTypeCard: 'Ввести тип платы',
     nodeTypePayload: 'Тип трафика',
-    nodeCardPower: 'Уровень выходной мощности, дБм'
+    nodeCardPower: 'Уровень выходной мощности, дБм',
+
+    resultTitleButton: 'Посчитай, брат',
+    resultTitleButtonLoader: 'Парсек...',
+    resultTableHeadType: 'Наименование',
+    resultTableHeadResult: 'Значение'
 };
 
 export default ru;

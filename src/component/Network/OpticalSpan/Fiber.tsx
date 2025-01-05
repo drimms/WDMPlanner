@@ -15,7 +15,7 @@ import ru from "../inventory/ru_dictionary";
 const Fiber = observer(({ index }: IProps) => {
     const { handleDeleteComponent } = useMenu();
     const { handleFiberChange, handleSpanLength } = useFiber();
-   
+    
     return (
         <>
             <Card sx={{ width: 600, mt: 3 }}>
