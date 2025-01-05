@@ -1,26 +1,27 @@
 import { makeAutoObservable } from "mobx";
+import { opticalAmplifier } from "../component/Network/inventory/amplifier";
+
 
 class AmplifierStore {
-    nf: number = 0;
-    type: string = '';
-    gain: number = 0;
+    amplifier = {
+        type: '',
+        gain: 0,
+        nf: 0,
+    }
 
     constructor() {
         makeAutoObservable(this);
     };
 
-    setNF(nf:number) {
-        this.nf = nf;
-    };
-
-    setType(type:string) {
-        this.type = type;
-    };
-
-    setGain(gain:number) {
-        this.gain = gain;
-    };
-    
+    setAmplifier({type, gain}: {
+        type: string, 
+        gain: number 
+    }) {
+        this.amplifier.type = type;
+        let amp = opticalAmplifier.filter(p => p.title === this.amplifier.type);
+        this.amplifier.gain = gain;
+        this.amplifier.nf = amp[0].nf;
+    };    
 };
 
 export default AmplifierStore;

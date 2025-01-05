@@ -5,26 +5,17 @@ import { toJS } from "mobx";
 
 const useNode = () => {
 
-    const handlePayloadChange = (e: SelectChangeEvent) => {
-        let typeClientCard = e.target.value;
-        rootStore.transponderStore.setType(typeClientCard);
-    };
+    const handleNodeInput = (e: ChangeEvent<HTMLInputElement> | SelectChangeEvent) => {
+        const { name, value } = e.target;
 
-    const handleChangeOutputPower = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        rootStore.transponderStore.setOutputPower(Number(value));
+        rootStore.transponderStore.setTransponderNode({
+            ...rootStore.transponderStore.transponderNode,
+            [name]: value
+        });
     };
-
-    const handleTitleNode = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        rootStore.transponderStore.setTitle(value);
-    };
-
-    console.log(toJS(rootStore.transponderStore), '---')
+console.log(toJS(rootStore.transponderStore.transponderNode))
     return ({
-        handleTitleNode,
-        handlePayloadChange,
-        handleChangeOutputPower
+        handleNodeInput
     })
 }
 

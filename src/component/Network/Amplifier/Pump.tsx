@@ -33,16 +33,16 @@ const Pump = observer(({ index }: IProps) => {
             </IconButton>
           }
           title={ru.opticalAmp}
-          subheader={rootStore.amplifierStore.type}
+          subheader={rootStore.amplifierStore.amplifier.type}
         />
         <CardContent>
 
           <Box sx={{ '& .MuiTextField-root': { ml: 2, mb: 2, width: '25ch' } }}>
             <Select
-              value={rootStore.amplifierStore.type}
+              value={rootStore.amplifierStore.amplifier.type}
               onChange={handleAmpChange}
               displayEmpty
-
+              name='type'
             >
               <MenuItem value="" disabled>
                 {ru.inputTypeAmp}
@@ -55,8 +55,9 @@ const Pump = observer(({ index }: IProps) => {
             </Select>
             <TextField
               label={ru.inputGain}
-              value={rootStore.amplifierStore.gain}
-              onChange={e => rootStore.amplifierStore.setGain(Number(e.target.value))}
+              value={rootStore.amplifierStore.amplifier.gain}
+              onChange={handleAmpChange}
+              name='gain'
               type="number"
             />
           </Box>

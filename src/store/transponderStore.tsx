@@ -1,29 +1,29 @@
 import { makeAutoObservable } from "mobx";
 
 class TransponderStore {
-    type: string = '';
-    payload: string = '';
-    power: number = 0;
-    title: string = '';
+    transponderNode = {
+        type: '',
+        payload: '',
+        power: 0,
+        title: ''
+    }
 
     constructor() {
         makeAutoObservable(this);
     };
 
-    setType(type:string) {
-        this.type = type;
-    };
-
-    setPayload(payload:string) {
-        this.payload = payload;
-    };
-
-    setOutputPower(power:number) {
-        this.power = power;
-    };
-    
-    setTitle(title:string) {
-        this.title = title;
+    setTransponderNode({type, payload, power, title}: 
+        {
+            type: string,
+            payload: string,
+            power: number,
+            title: string
+        }) 
+        {
+            this.transponderNode.title = title;
+            this.transponderNode.type = type;
+            this.transponderNode.payload = payload;
+            this.transponderNode.power = power;
     }
 };
 

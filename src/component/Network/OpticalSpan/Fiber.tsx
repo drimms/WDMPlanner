@@ -14,8 +14,8 @@ import ru from "../inventory/ru_dictionary";
 
 const Fiber = observer(({ index }: IProps) => {
     const { handleDeleteComponent } = useMenu();
-    const { handleFiberChange, handleSpanLength } = useFiber();
-    
+    const { handleFiberInput } = useFiber();
+
     return (
         <>
             <Card sx={{ width: 600, mt: 3 }}>
@@ -31,7 +31,7 @@ const Fiber = observer(({ index }: IProps) => {
                         </IconButton>
                     }
                     title={ru.opticalSpan}
-                    subheader={rootStore.fiberStore.fiber}
+                    subheader={rootStore.fiberStore.fiberSection.fiberType}
                 />
                 <CardContent>
                     <Box
@@ -43,8 +43,9 @@ const Fiber = observer(({ index }: IProps) => {
                             gap: 2
                         }}>
                         <Select
-                            value={rootStore.fiberStore.fiber}
-                            onChange={handleFiberChange}
+                            value={rootStore.fiberStore.fiberSection.fiberType}
+                            name="fiberType"
+                            onChange={handleFiberInput}
                             displayEmpty
                             autoWidth
                         >
@@ -57,17 +58,16 @@ const Fiber = observer(({ index }: IProps) => {
                                 </MenuItem>
                             ))}
                         </Select>
-
                         <TextField
                             label={ru.inputLengthFiber}
-                            value={rootStore.fiberStore.span}
-                            onChange={handleSpanLength}
+                            value={rootStore.fiberStore.fiberSection.span}
+                            onChange={handleFiberInput}
                             type='number'
-
+                            name="span"
                         />
                         <TextField
                             disabled
-                            value={rootStore.fiberStore.result + ' ' + 'дБ'} />
+                            value={rootStore.fiberStore.fiberSection.totalLoss + ' ' + 'дБ'} />
                     </Box>
                 </CardContent>
 
