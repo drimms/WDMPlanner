@@ -60,9 +60,9 @@ const Pump = observer(({ index }: IProps) => {
               type="number"
             />
           </Box>
-          <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+          {/* <Typography variant="body1" sx={{ color: 'text.secondary' }}>
             {ru.opticalDesc}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </Card>
     </>

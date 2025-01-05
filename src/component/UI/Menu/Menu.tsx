@@ -17,6 +17,8 @@ const BasicMenu = () => {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        color="success"
+        variant="contained"
       >
         {ru.inputComponent}
       </Button>

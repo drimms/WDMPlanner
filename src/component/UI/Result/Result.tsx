@@ -18,7 +18,7 @@ const Result = () => {
             const result = handleCalculationOSNR(); 
             setData(toJS(result)); 
             setLoading(false); 
-        }, 3000); 
+        }, 1000); 
     };
 
     console.log(data)
@@ -30,15 +30,21 @@ const Result = () => {
                     onClick={handleCalculation}
                     disabled = {loading}
                 >
-                    {loading ? ru.resultTitleButtonLoader : ru.resultTitleButton}
+                    {loading ? <>{ru.resultTitleButtonLoader}<CircularProgress
+                        size={24}
+                        sx={{
+                        color: 'inherit',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        marginTop: '-12px',
+                        marginLeft: '-12px',
+                        }}
+                    /></> : ru.resultTitleButton}
                 </Button>
 
-                {loading ? (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, width: '100%' }}>
-                        <CircularProgress />
-                    </Box>
-                ) : (
-                data.length > 0 && (
+                {
+                !loading && data.length > 0 && (
                     <TableContainer
                         component={Paper}
                         sx={{ mt: 2, width: '100%' }}
@@ -61,7 +67,7 @@ const Result = () => {
                         </Table>
                     </TableContainer>
                 )
-            )}
+            }
             </Box>
 
         </>

@@ -1,7 +1,7 @@
 const ru = {
-    inputComponent: 'Добавить компонент',
+    inputComponent: 'Добавить сетевой элемент',
     inputTypeAmp: 'Ввести тип усилителя',
-    inputGain: 'Ввести коэффициент усилителя',
+    inputGain: 'Ввести коэффициент усилителя, дБ',
     inputLengthFiber: 'Ввести длину пролета, км',
 
     opticalAmp: 'Оптический усилитель',
