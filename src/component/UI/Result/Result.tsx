@@ -60,7 +60,9 @@ const Result = () => {
                                 {data.map((p, i) => (
                                     <TableRow key={i}>
                                         <TableCell>{p.type}</TableCell>
-                                        <TableCell>{p.param}</TableCell>
+                                        <TableCell>{p.param.power}</TableCell>
+                                        <TableCell>{p.param.title}</TableCell>
+                                        <TableCell>{p.param.payload}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

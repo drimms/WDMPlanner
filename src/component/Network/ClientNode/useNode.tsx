@@ -1,6 +1,6 @@
 import { SelectChangeEvent } from "@mui/material";
 import rootStore from "../../../store/rootStore";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { toJS } from "mobx";
 
 const useNode = () => {
@@ -12,8 +12,13 @@ const useNode = () => {
             ...rootStore.transponderStore.transponderNode,
             [name]: value
         });
+        
+        rootStore.menuStore.addInfo(
+            rootStore.menuStore.key, 
+            rootStore.transponderStore.transponderNode
+        )
     };
-console.log(toJS(rootStore.transponderStore.transponderNode))
+
     return ({
         handleNodeInput
     })

@@ -14,7 +14,7 @@ import { observer } from "mobx-react-lite";
 import ru from '../../Network/inventory/ru_dictionary'
 const Pump = observer(({ index }: IProps) => {
   
-  const { handleDeleteComponent } = useMenu();
+  const handleDeleteComponent = useMenu();
 
   const { handleAmpChange } = useAmplifier();
 

@@ -12,6 +12,7 @@ const ru = {
     nodeTitleNode: 'Наименование',
     nodeTitle: 'Клиентский узел',
     nodeTypeCard: 'Ввести тип платы',
+    nodeTypeMode: 'Режим работы',
     nodeTypePayload: 'Тип трафика',
     nodeCardPower: 'Уровень выходной мощности, дБм',
 

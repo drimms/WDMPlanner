@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import rootStore from "../../../store/rootStore";
+import { toJS } from "mobx";
 
 
 const MenuContext = createContext();
@@ -11,13 +12,16 @@ export const MenuProvider = ({ children }) => {
     const handleAddComponent = (componentType: string) => {
         switch (componentType) {
             case 'Node':
-                rootStore.menuStore.addComponent(componentType, rootStore.transponderStore.power);
+                let id = rootStore.menuStore.addComponent(componentType, rootStore.transponderStore.transponderNode);
+                rootStore.menuStore.setKey(id);
                 break
             case 'Fiber':
-                rootStore.menuStore.addComponent(componentType, rootStore.fiberStore.result);
+                id = rootStore.menuStore.addComponent(componentType, rootStore.fiberStore.fiberSection);
+                rootStore.menuStore.setKey(id);
                 break
             case 'Pump':
-                rootStore.menuStore.addComponent(componentType, rootStore.amplifierStore.gain);
+                id = rootStore.menuStore.addComponent(componentType, rootStore.amplifierStore.amplifier);
+                rootStore.menuStore.setKey(id);
                 break
         }
         handleClose();

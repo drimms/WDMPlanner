@@ -1,26 +1,30 @@
 export const clientTransponder = [
         {
-            'title': 'TR-10-101',    
+            'title': 'BWN1000-V-C21X2T10-T',    
             'outputmax': 2,
             'outputmin': -2,
-            'payload': ['10GEth', 'SDH', 'FiberChannel']
+            'mode': [
+                '40GEth', 
+                '40GE_100GE',
+                '40GE_16×10GE', 
+                'Hybrid',
+                'Mapper',
+                'Mapper_100GE',
+                'Mapper_3×32G FC',
+                'Mapper_6×32G FC',
+                'Mapper_OTU4',
+                'OTN',
+                'OTN_100GE', 
+                'OTN_OTU4'
+            ],
+            'payload': [
+                '10GEth', 
+                '40GEth',
+                '16G FC', 
+                '32G FC',
+                '100GE',
+                'OTU2',
+                'OTU4',
+            ]
         },
-        {
-            'title': 'TR-10-102',
-            'outputmax': 1,
-            'outputmin': -5,
-            'payload': ['1GEth', 'SDH']
-        },
-        {
-            'title': 'TR-10-103',
-            'outputmax': 0,
-            'outputmin': -5,
-            'payload': ['1GEth', '10GEth', 'SDH']
-        },
-        {
-            'title': 'TR-10-104',
-            'outputmax': 3,
-            'outputmin': -4,
-            'payload': ['10GEth', 'FiberChannel']
-        }
     ];

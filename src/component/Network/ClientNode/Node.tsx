@@ -23,7 +23,7 @@ const Node = observer(({ index }: IProps) => {
 
     return (
         <>
-            <Card sx={{ width: 600, mt: 3 }}>
+            <Card sx={{ width: 1200, mt: 3 }}>
                 <CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: 'blue' }} aria-label="recipe">
@@ -68,6 +68,23 @@ const Node = observer(({ index }: IProps) => {
                                     {p.title}
                                 </MenuItem>
                             ))}
+                        </Select>
+                        <Select
+                            value={rootStore.transponderStore.transponderNode.mode}
+                            onChange={handleNodeInput}
+                            name='mode'
+                            displayEmpty
+                            autoWidth
+                        >
+                            <MenuItem value="" disabled>
+                                {ru.nodeTypeMode}
+                            </MenuItem>
+                            {clientTransponder.find(p => p.title === rootStore.transponderStore.transponderNode.type)?.payload.map((p, i) => (
+                                <MenuItem key={i} value={p}>
+                                    {p}
+                                </MenuItem>
+                            ))
+                            }
                         </Select>
                         <Select
                             value={rootStore.transponderStore.transponderNode.payload}
