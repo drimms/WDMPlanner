@@ -12,6 +12,7 @@ import rootStore from "../../../store/rootStore";
 import useNode from "./useNode";
 import { observer } from "mobx-react-lite";
 import ru from "../inventory/ru_dictionary";
+import { toJS } from "mobx";
 
 
 const Node = observer(({ index }: IProps) => {
@@ -20,6 +21,7 @@ const Node = observer(({ index }: IProps) => {
 
     const { handleNodeInput } = useNode();
     
+    console.log((clientTransponder.find(p => p.title === rootStore.transponderStore.transponderNode.type)?.mode || [])[rootStore.transponderStore.transponderNode.mode])
 
     return (
         <>
@@ -79,7 +81,8 @@ const Node = observer(({ index }: IProps) => {
                             <MenuItem value="" disabled>
                                 {ru.nodeTypeMode}
                             </MenuItem>
-                            {clientTransponder.find(p => p.title === rootStore.transponderStore.transponderNode.type)?.payload.map((p, i) => (
+                            {Object.keys(
+                                clientTransponder.find((p) => p.title === rootStore.transponderStore.transponderNode.type)?.mode || []).map((p, i) => (
                                 <MenuItem key={i} value={p}>
                                     {p}
                                 </MenuItem>
@@ -96,7 +99,9 @@ const Node = observer(({ index }: IProps) => {
                             <MenuItem value="" disabled>
                                 {ru.nodeTypePayload}
                             </MenuItem>
-                            {clientTransponder.find(p => p.title === rootStore.transponderStore.transponderNode.type)?.payload.map((p, i) => (
+                            {(clientTransponder.find(p => p.title === rootStore.transponderStore.transponderNode.type)
+                                ?.mode
+                                ?.[rootStore.transponderStore.transponderNode.mode] || []).map((p, i) => (
                                 <MenuItem key={i} value={p}>
                                     {p}
                                 </MenuItem>
