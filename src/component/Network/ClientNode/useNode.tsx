@@ -1,22 +1,18 @@
-import { SelectChangeEvent } from "@mui/material";
 import rootStore from "../../../store/rootStore";
-import { ChangeEvent, useCallback } from "react";
-import { toJS } from "mobx";
+import { runInAction } from "mobx";
+import { SelectChangeEvent } from "@mui/material";
+import { ChangeEvent } from "react";
 
 const useNode = () => {
 
-    const handleNodeInput = (e: ChangeEvent<HTMLInputElement> | SelectChangeEvent) => {
+    const handleNodeInput = (index: any, e: SelectChangeEvent<string> | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 
-        rootStore.transponderStore.setTransponderNode({
-            ...rootStore.transponderStore.transponderNode,
-            [name]: value
-        });
-        
-        rootStore.menuStore.addInfo(
-            rootStore.menuStore.key, 
-            rootStore.transponderStore.transponderNode
-        )
+        if (!name) return;
+
+        runInAction(() => {
+            rootStore.unitStore.setUnitStore('unit', name, value, index)
+        })
     };
 
     return ({

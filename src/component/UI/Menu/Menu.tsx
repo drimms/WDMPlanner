@@ -40,6 +40,9 @@ const BasicMenu = () => {
         <MenuItem onClick={() => handleAddComponent('Fiber')} >
           {ru.opticalSpan}
         </MenuItem>
+        <MenuItem onClick={() => handleAddComponent('Mux')} >
+          {ru.mux}
+        </MenuItem>
       </Menu>
     </div>
   );

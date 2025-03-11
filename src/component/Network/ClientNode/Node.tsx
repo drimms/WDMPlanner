@@ -12,24 +12,23 @@ import rootStore from "../../../store/rootStore";
 import useNode from "./useNode";
 import { observer } from "mobx-react-lite";
 import ru from "../inventory/ru_dictionary";
-import { toJS } from "mobx";
-
 
 const Node = observer(({ index }: IProps) => {
 
     const { handleDeleteComponent } = useMenu();
 
     const { handleNodeInput } = useNode();
-    
-    console.log((clientTransponder.find(p => p.title === rootStore.transponderStore.transponderNode.type)?.mode || [])[rootStore.transponderStore.transponderNode.mode])
+
+    const modeKey = rootStore.unitStore.node[index]?.mode as keyof typeof clientTransponder[0]["mode"] | undefined;
+    const modeArray = modeKey ? clientTransponder.find(p => p.title === rootStore.unitStore.node[index]?.type)?.mode[modeKey] : [];
 
     return (
         <>
-            <Card sx={{ width: 1200, mt: 3 }}>
+            <Card sx={{ width: 1100, mt: 3 }}>
                 <CardHeader
                     avatar={
-                        <Avatar sx={{ bgcolor: 'blue' }} aria-label="recipe">
-                            {index}
+                        <Avatar  aria-label="recipe">
+                            <img src={'/assets/network/icon-dwdm-tunning.webp'} width="40px" />
                         </Avatar>
                     }
                     action={
@@ -38,7 +37,6 @@ const Node = observer(({ index }: IProps) => {
                         </IconButton>
                     }
                     title={ru.nodeTitle}
-                    subheader={rootStore.transponderStore.transponderNode.type}
                 />
                 <CardContent>
                     <Box
@@ -51,13 +49,13 @@ const Node = observer(({ index }: IProps) => {
                         }}>
                             <TextField
                             label={ru.nodeTitleNode}
-                            value={rootStore.transponderStore.transponderNode.title}
-                            onChange={handleNodeInput}
+                            value={rootStore.unitStore.node[index]?.title || ""}
+                            onChange={e => handleNodeInput(index, e)}
                             name='title'
                         />
                         <Select
-                            value={rootStore.transponderStore.transponderNode.type}
-                            onChange={handleNodeInput}
+                            value={rootStore.unitStore.node[index]?.type || ""}
+                            onChange={(e) => handleNodeInput(index, e)}
                             name='type'
                             displayEmpty
                             autoWidth
@@ -72,8 +70,8 @@ const Node = observer(({ index }: IProps) => {
                             ))}
                         </Select>
                         <Select
-                            value={rootStore.transponderStore.transponderNode.mode}
-                            onChange={handleNodeInput}
+                            value={rootStore.unitStore.node[index]?.mode || ""}
+                            onChange={e => handleNodeInput(index, e)}
                             name='mode'
                             displayEmpty
                             autoWidth
@@ -82,7 +80,7 @@ const Node = observer(({ index }: IProps) => {
                                 {ru.nodeTypeMode}
                             </MenuItem>
                             {Object.keys(
-                                clientTransponder.find((p) => p.title === rootStore.transponderStore.transponderNode.type)?.mode || []).map((p, i) => (
+                                clientTransponder.find((p) => p.title === rootStore.unitStore.node[index]?.type)?.mode || []).map((p, i) => (
                                 <MenuItem key={i} value={p}>
                                     {p}
                                 </MenuItem>
@@ -90,8 +88,8 @@ const Node = observer(({ index }: IProps) => {
                             }
                         </Select>
                         <Select
-                            value={rootStore.transponderStore.transponderNode.payload}
-                            onChange={handleNodeInput}
+                            value={rootStore.unitStore.node[index]?.payload}
+                            onChange={e => handleNodeInput(index, e)}
                             name='payload'
                             displayEmpty
                             autoWidth
@@ -99,9 +97,8 @@ const Node = observer(({ index }: IProps) => {
                             <MenuItem value="" disabled>
                                 {ru.nodeTypePayload}
                             </MenuItem>
-                            {(clientTransponder.find(p => p.title === rootStore.transponderStore.transponderNode.type)
-                                ?.mode
-                                ?.[rootStore.transponderStore.transponderNode.mode] || []).map((p, i) => (
+                            {
+                            modeArray?.map((p:string, i:number) => (
                                 <MenuItem key={i} value={p}>
                                     {p}
                                 </MenuItem>
@@ -110,9 +107,9 @@ const Node = observer(({ index }: IProps) => {
                         </Select>
                         <TextField
                             label={ru.nodeCardPower}
-                            value={rootStore.transponderStore.transponderNode.power}
+                            value={rootStore.unitStore.node[index]?.power || 0}
                             name='power'
-                            onChange={handleNodeInput}
+                            onChange={e => handleNodeInput(index, e)}
                             error={rootStore.error}
                             type='number'
                         />

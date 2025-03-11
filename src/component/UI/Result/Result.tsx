@@ -1,6 +1,5 @@
 import { CircularProgress, Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { useState } from "react"
-import rootStore from '../../../store/rootStore';
 import useResult from "./useResult";
 import { toJS } from "mobx";
 import ru from "../../Network/inventory/ru_dictionary";
@@ -8,20 +7,21 @@ import ru from "../../Network/inventory/ru_dictionary";
 
 const Result = () => {
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState<any>([]);
+    const [data, setData] = useState<number[][]>([]);
+    const [count, setCount] = useState(0)
     const { handleCalculationOSNR } = useResult();
 
     const handleCalculation = () => {
         setLoading(true);
 
         setTimeout(() => {
-            const result = handleCalculationOSNR(); 
-            setData(toJS(result)); 
+            const calculation = handleCalculationOSNR(); 
+            setData(toJS(calculation) as number[][]); 
             setLoading(false); 
-        }, 1000); 
+            setCount(prev => prev + 1)
+        }, 500); 
     };
 
-    console.log(data)
     return (
         <>
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
@@ -40,7 +40,8 @@ const Result = () => {
                         marginTop: '-12px',
                         marginLeft: '-12px',
                         }}
-                    /></> : ru.resultTitleButton}
+                    /></> : 
+                    count === 0 ? ru.resultTitleButton : ru.resultReTitleButton}
                 </Button>
 
                 {
@@ -53,16 +54,16 @@ const Result = () => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>{ru.resultTableHeadType}</TableCell>
-                                    <TableCell>{ru.resultTableHeadResult}</TableCell>
+                                    <TableCell align="center">{ru.resultTableHeadResult}</TableCell>
+                                    <TableCell align="center">{ru.resultTableHeadOSNR}</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {data.map((p, i) => (
                                     <TableRow key={i}>
-                                        <TableCell>{p.type}</TableCell>
-                                        <TableCell>{p.param.power}</TableCell>
-                                        <TableCell>{p.param.title}</TableCell>
-                                        <TableCell>{p.param.payload}</TableCell>
+                                        <TableCell>{p[0]}</TableCell>
+                                        <TableCell align="center">{p[1]}</TableCell>
+                                        <TableCell align="center">{(p[2]) ? p[2].toFixed(2) : '-'}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

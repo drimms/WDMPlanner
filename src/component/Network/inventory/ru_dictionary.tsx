@@ -1,25 +1,30 @@
 const ru = {
     inputComponent: 'Добавить сетевой элемент',
-    inputTypeAmp: 'Ввести тип усилителя',
+    inputTypeAmp: 'Выбор усилителя',
     inputGain: 'Ввести коэффициент усилителя, дБ',
+    inputMux: 'Ввести затухание, дБ',
     inputLengthFiber: 'Ввести длину пролета, км',
 
     opticalAmp: 'Оптический усилитель',
     opticalDesc: 'Краткое описание оптического усилителя',
     opticalSpan: 'Оптический пролет',
-    opticalFiberType: 'Ввести тип волокна',
+    opticalFiberType: 'Выбрать тип волокна',
+
+    mux: 'Мультиплексор MD48/MD96',
     
-    nodeTitleNode: 'Наименование',
+    nodeTitleNode: 'Название клиентского узла',
     nodeTitle: 'Клиентский узел',
-    nodeTypeCard: 'Ввести тип платы',
+    nodeTypeCard: 'Выбрать плату',
     nodeTypeMode: 'Режим работы',
     nodeTypePayload: 'Тип трафика',
     nodeCardPower: 'Уровень выходной мощности, дБм',
 
     resultTitleButton: 'Посчитай, брат',
+    resultReTitleButton: 'Пересчитай, брат',
     resultTitleButtonLoader: 'Парсек...',
-    resultTableHeadType: 'Наименование',
-    resultTableHeadResult: 'Значение'
+    resultTableHeadType: 'Сетевой элемент',
+    resultTableHeadResult: 'Уровень сигнала на выходе, дБм',
+    resultTableHeadOSNR: 'Значение OSNR, дБ'
 };
 
 export default ru;

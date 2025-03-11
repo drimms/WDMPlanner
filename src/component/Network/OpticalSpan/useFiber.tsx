@@ -1,29 +1,26 @@
 
-import { SelectChangeEvent } from "@mui/material";
 import { opticalFiber } from "../inventory/fiber";
 import rootStore from "../../../store/rootStore";
+import { runInAction } from "mobx";
+import { SelectChangeEvent } from "@mui/material";
 import { ChangeEvent } from "react";
-import { toJS } from "mobx";
 
 
 export const useFiber = () => {
 
-    const handleFiberInput = (e: ChangeEvent<HTMLTextAreaElement> | SelectChangeEvent) => {
+    const handleFiberInput = (index: string, e: SelectChangeEvent<string> | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
+        
+        if (!name) return; 
 
-        rootStore.fiberStore.setFiberSection({
-            ...rootStore.fiberStore.fiberSection,
-            [name]: value
-        });
+        runInAction(() => {
+            rootStore.unitStore.setUnitStore('fiber', name, value, index);
 
-        let loss = opticalFiber.find(p => p.title === value);
-            rootStore.fiberStore.setAtt(loss.attenuation);
-        };
+        })
 
-    console.log(toJS(rootStore.fiberStore.fiberSection))    
-    return (
-        {
-            handleFiberInput
-        }
-    )
+        let loss = opticalFiber.find(p => p.title === rootStore.unitStore['fiber'][index]['fiberType']);
+        rootStore.unitStore.setFiber(index, loss ? loss.attenuation : 0);
+    };
+  
+    return ({handleFiberInput});
 }

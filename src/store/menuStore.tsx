@@ -1,11 +1,11 @@
-import { makeAutoObservable, toJS } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { v4 as uuidv4 } from 'uuid';
 
 class MenuStore {
 
     key = '';
     components: { 
-        id: string; 
+        id: any,
         type: any;
         param: any }[] = [];
 
@@ -23,7 +23,7 @@ class MenuStore {
         return id;
     };
     
-    removeComponent(id: number) {
+    removeComponent(id: string) {
         this.components = this.components.filter((component) => component.id !== id);
     };
 

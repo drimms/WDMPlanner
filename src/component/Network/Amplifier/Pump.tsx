@@ -1,4 +1,4 @@
-import { Box, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Box, MenuItem, Select, TextField } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -12,19 +12,22 @@ import useAmplifier from "./useAmplifier";
 import { opticalAmplifier } from '../inventory/amplifier'
 import { observer } from "mobx-react-lite";
 import ru from '../../Network/inventory/ru_dictionary'
+
 const Pump = observer(({ index }: IProps) => {
   
-  const handleDeleteComponent = useMenu();
+  const { handleDeleteComponent } = useMenu();
 
-  const { handleAmpChange } = useAmplifier();
+  const { handleAmpChange, validation } = useAmplifier();
+
+  let disable = !!rootStore.unitStore.pump[index]?.type;
 
   return (
     <>
       <Card sx={{ maxWidth: 600, mt: 3 }}>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: 'red' }} aria-label="recipe">
-              {index}
+            <Avatar sx={{ bgcolor: 'black' }} aria-label="recipe">
+              <img src={'/assets/network/icon-aocs.webp'} width="60px" />
             </Avatar>
           }
           action={
@@ -33,14 +36,13 @@ const Pump = observer(({ index }: IProps) => {
             </IconButton>
           }
           title={ru.opticalAmp}
-          subheader={rootStore.amplifierStore.amplifier.type}
         />
         <CardContent>
 
           <Box sx={{ '& .MuiTextField-root': { ml: 2, mb: 2, width: '25ch' } }}>
             <Select
-              value={rootStore.amplifierStore.amplifier.type}
-              onChange={handleAmpChange}
+              value={rootStore.unitStore.pump[index]?.type}
+              onChange={(e) => handleAmpChange(index, e)}
               displayEmpty
               name='type'
             >
@@ -54,16 +56,16 @@ const Pump = observer(({ index }: IProps) => {
               ))}
             </Select>
             <TextField
+              disabled={!disable}
               label={ru.inputGain}
-              value={rootStore.amplifierStore.amplifier.gain}
-              onChange={handleAmpChange}
+              value={rootStore.unitStore.pump[index]?.gain}
+              onChange={(e) => handleAmpChange(index, e)}
+              error={validation(index)}
+              helperText={ validation(index) ? "Значение вне рабочего диапазона" : "" }
               name='gain'
               type="number"
             />
           </Box>
-          {/* <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-            {ru.opticalDesc}
-          </Typography> */}
         </CardContent>
       </Card>
     </>

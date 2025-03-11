@@ -12,6 +12,7 @@ import rootStore from "../../../store/rootStore";
 import { observer } from "mobx-react-lite";
 import ru from "../inventory/ru_dictionary";
 
+
 const Fiber = observer(({ index }: IProps) => {
     const { handleDeleteComponent } = useMenu();
     const { handleFiberInput } = useFiber();
@@ -21,8 +22,8 @@ const Fiber = observer(({ index }: IProps) => {
             <Card sx={{ width: 600, mt: 3 }}>
                 <CardHeader
                     avatar={
-                        <Avatar sx={{ bgcolor: 'green' }} aria-label="recipe">
-                            {index}
+                        <Avatar aria-label="recipe">
+                           <img src={'/assets/network/fiber.png'} width="40px" />
                         </Avatar>
                     }
                     action={
@@ -31,7 +32,7 @@ const Fiber = observer(({ index }: IProps) => {
                         </IconButton>
                     }
                     title={ru.opticalSpan}
-                    subheader={rootStore.fiberStore.fiberSection.fiberType}
+                    //subheader={rootStore.unitStore.fiber[index]?.fiberType}
                 />
                 <CardContent>
                     <Box
@@ -43,9 +44,9 @@ const Fiber = observer(({ index }: IProps) => {
                             gap: 2
                         }}>
                         <Select
-                            value={rootStore.fiberStore.fiberSection.fiberType}
+                            value={rootStore.unitStore.fiber[index]?.fiberType || ''}
                             name="fiberType"
-                            onChange={handleFiberInput}
+                            onChange={e => handleFiberInput(index, e)}
                             displayEmpty
                             autoWidth
                         >
@@ -60,14 +61,14 @@ const Fiber = observer(({ index }: IProps) => {
                         </Select>
                         <TextField
                             label={ru.inputLengthFiber}
-                            value={rootStore.fiberStore.fiberSection.span}
-                            onChange={handleFiberInput}
+                            value={rootStore.unitStore.fiber[index]?.span || 0}
+                            onChange={e => handleFiberInput(index, e)}
                             type='number'
                             name="span"
                         />
                         <TextField
                             disabled
-                            value={rootStore.fiberStore.fiberSection.totalLoss + ' ' + 'дБ'} />
+                            value={rootStore.unitStore.fiber[index]?.totalLoss + ' ' + 'дБ' || 0} />
                     </Box>
                 </CardContent>
 

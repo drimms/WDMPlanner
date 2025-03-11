@@ -1,33 +1,45 @@
 import { createContext, useContext, useState } from "react";
 import rootStore from "../../../store/rootStore";
-import { toJS } from "mobx";
 
+type MenuContextType = {
+    open: boolean;
+    anchorEl: HTMLElement | null,
+    handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void,
+    handleClose: () => void,
+    handleAddComponent: (componentType: string) => void,
+    handleDeleteComponent: (index: string) => void
+};
 
-const MenuContext = createContext();
+const MenuContext = createContext<MenuContextType | null>(null);
 
-export const MenuProvider = ({ children }) => {
-    const [anchorEl, setAnchorEl] = useState<EventTarget | null>(null);
+export const MenuProvider = ({ children }: any) => {
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
+    let id;
 
     const handleAddComponent = (componentType: string) => {
         switch (componentType) {
             case 'Node':
-                let id = rootStore.menuStore.addComponent(componentType, rootStore.transponderStore.transponderNode);
+                id = rootStore.menuStore.addComponent(componentType, rootStore.unitStore.node);
                 rootStore.menuStore.setKey(id);
                 break
             case 'Fiber':
-                id = rootStore.menuStore.addComponent(componentType, rootStore.fiberStore.fiberSection);
+                id = rootStore.menuStore.addComponent(componentType, rootStore.unitStore.fiber);
                 rootStore.menuStore.setKey(id);
                 break
             case 'Pump':
-                id = rootStore.menuStore.addComponent(componentType, rootStore.amplifierStore.amplifier);
+                id = rootStore.menuStore.addComponent(componentType, rootStore.unitStore.pump);
+                rootStore.menuStore.setKey(id);
+                break
+            case 'Mux':
+                id = rootStore.menuStore.addComponent(componentType, rootStore.unitStore.mux);
                 rootStore.menuStore.setKey(id);
                 break
         }
         handleClose();
     };
     
-    const handleClick = (event: MouseEvent) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -35,7 +47,7 @@ export const MenuProvider = ({ children }) => {
         setAnchorEl(null);
     };
 
-    const handleDeleteComponent = (index: number) => {
+    const handleDeleteComponent = (index: string) => {
         rootStore.menuStore.removeComponent(index);
     }
 
@@ -56,5 +68,11 @@ export const MenuProvider = ({ children }) => {
 };
 
 export const useMenu = () => {
-    return useContext(MenuContext);
+    const context = useContext(MenuContext);
+    
+    if (!context) {
+        throw new Error("useMenu must be used within a MenuProvider");
+    }
+
+    return context;
 };

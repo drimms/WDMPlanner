@@ -1,20 +1,14 @@
-import FiberStore from "./fiberStore";
-import AmplifierStore from "./amplifierStore";
-import TransponderStore from "./transponderStore";
+import UnitStore from "./unitStore";
 import MenuStore from "./menuStore";
 
 class rootStore {
-    fiberStore;
-    amplifierStore;
-    transponderStore;
+    unitStore;
     menuStore;
 
     error:boolean = false;
 
     constructor() {
-        this.fiberStore = new FiberStore();
-        this.amplifierStore = new AmplifierStore();
-        this.transponderStore = new TransponderStore();
+        this.unitStore = new UnitStore();
         this.menuStore = new MenuStore();
     };
 
